@@ -12,6 +12,6 @@
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('deviceCats.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::submit('Lưu', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('deviceCats.index') !!}" class="btn btn-default">Hủy bỏ</a>
 </div>

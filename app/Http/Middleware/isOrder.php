@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 
-class IsAdmin {
+class IsOrder {
 
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class IsAdmin {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        if (\Auth::check()&& $request->user()->is_admin == '1') {
+        if (\Auth::check()&& $request->user()->role == 3) {
             return $next($request);
         }
         return new RedirectResponse(url('/home'));

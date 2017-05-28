@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDevicesRequest;
 use App\Http\Requests\UpdateDevicesRequest;
 use App\Repositories\DevicesRepository;
+use App\Repositories\RepairsRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
@@ -21,11 +22,14 @@ class DevicesController extends AppBaseController
 {
     /** @var  DevicesRepository */
     private $devicesRepository;
+    private $repairsRepository;
 
-    public function __construct(DevicesRepository $devicesRepo)
+    public function __construct(DevicesRepository $devicesRepo, RepairsRepository $repairsRepo)
     {
         $this->middleware('auth');
+        //$this->middleware('isManager');
         $this->devicesRepository = $devicesRepo;
+        $this->repairsRepository = $repairsRepo;
     }
 
     /**
@@ -64,6 +68,22 @@ class DevicesController extends AppBaseController
      */
     public function store(CreateDevicesRequest $request)
     {
+        $this->validate(
+            $request, 
+            [
+                'name' => 'required',
+                'date_entry' => 'required',
+                'date_using' => 'required',
+                'date_warranty' => 'required'
+            ],
+            [
+                'name.required' => 'Bạn phải nhập Tên thiết bị.',
+                'date_entry.required' => 'Bạn phải nhập Ngày nhập về.',
+                'date_using.required' => 'Bạn phải nhập Ngày nhập sử dụng.',
+                'date_warranty.required' => 'Bạn phải nhập Ngày hết bảo hành.'
+            ]
+        );
+
         $input = $request->all();
         $devices = $this->devicesRepository->create($input);
 
@@ -125,6 +145,22 @@ class DevicesController extends AppBaseController
      */
     public function update($id, UpdateDevicesRequest $request)
     {
+        $this->validate(
+            $request, 
+            [
+                'name' => 'required',
+                'date_entry' => 'required',
+                'date_using' => 'required',
+                'date_warranty' => 'required'
+            ],
+            [
+                'name.required' => 'Bạn phải nhập Tên thiết bị.',
+                'date_entry.required' => 'Bạn phải nhập Ngày nhập về.',
+                'date_using.required' => 'Bạn phải nhập Ngày nhập sử dụng.',
+                'date_warranty.required' => 'Bạn phải nhập Ngày hết bảo hành.'
+            ]
+        );
+        
         $devices = $this->devicesRepository->findWithoutFail($id);
 
         if (empty($devices)) {
@@ -162,5 +198,14 @@ class DevicesController extends AppBaseController
         Flash::success('Devices deleted successfully.');
 
         return redirect(route('devices.index'));
+    }
+    
+    
+    public function viewRepairById($id){
+        $repairs = $this->repairsRepository->findWhere(['id_device'=>$id])->all();
+        //$repairs = \DB::table('repairs')->where('id_device', $id)->get();
+        //dd($repairs);
+        $currentUserRole = \Auth::user()->role;
+        return view('repairs.index', compact('repairs', 'currentUserRole'));
     }
 }

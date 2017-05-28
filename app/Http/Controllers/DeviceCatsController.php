@@ -19,6 +19,7 @@ class DeviceCatsController extends AppBaseController
     public function __construct(DeviceCatsRepository $deviceCatsRepo)
     {
         $this->middleware('auth');
+        $this->middleware('isManager');
         $this->deviceCatsRepository = $deviceCatsRepo;
     }
 
@@ -56,6 +57,22 @@ class DeviceCatsController extends AppBaseController
      */
     public function store(CreateDeviceCatsRequest $request)
     {
+        $this->validate(
+            $request, 
+            [
+                'name' => 'required',
+                'quantity' => 'required|numeric|digits_between:1,4'
+                
+            ],
+            [
+                'name.required' => 'Bạn phải nhập Danh mục thiết bị.',
+                'quantity.required' => 'Bạn phải nhập số lượng thiết bị.',
+                'quantity.numeric' => 'Bạn phải nhập số',
+                'quantity.digits_between' => 'Số lượng không quá 4 chữ số.'
+                
+            ]
+        );
+
         $input = $request->all();
 
         $deviceCats = $this->deviceCatsRepository->create($input);
@@ -115,6 +132,22 @@ class DeviceCatsController extends AppBaseController
      */
     public function update($id, UpdateDeviceCatsRequest $request)
     {
+        $this->validate(
+            $request, 
+            [
+                'name' => 'required',
+                'quantity' => 'required|numeric|digits_between:1,4'
+                
+            ],
+            [
+                'name.required' => 'Bạn phải nhập Danh mục thiết bị.',
+                'quantity.required' => 'Bạn phải nhập số lượng thiết bị.',
+                'quantity.numeric' => 'Bạn phải nhập số',
+                'quantity.digits_between' => 'Số lượng không quá 4 chữ số.'
+                
+            ]
+        );
+        
         $deviceCats = $this->deviceCatsRepository->findWithoutFail($id);
 
         if (empty($deviceCats)) {

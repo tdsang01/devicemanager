@@ -1,0 +1,1 @@
+cmd /c "D:\Sang\xampp\htdocs\datn_devicemanager\email.bat"

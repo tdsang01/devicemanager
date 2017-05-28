@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Illuminate\Validation\Validator;
 
 class ClassroomsController extends AppBaseController
 {
@@ -19,6 +20,7 @@ class ClassroomsController extends AppBaseController
     public function __construct(ClassroomsRepository $classroomsRepo)
     {
         $this->middleware('auth');
+        $this->middleware('isManager');
         $this->classroomsRepository = $classroomsRepo;
     }
 
@@ -54,8 +56,27 @@ class ClassroomsController extends AppBaseController
      *
      * @return Response
      */
+    // public function store(CreateClassroomsRequest $request)
+    // {
+    //     $input = $request->all();
+
+    //     $classrooms = $this->classroomsRepository->create($input);
+
+    //     Flash::success('Classrooms saved successfully.');
+
+    //     return redirect(route('classrooms.index'));
+    // }
     public function store(CreateClassroomsRequest $request)
     {
+        $this->validate(
+            $request, 
+            ['name' => 'required|max:5'],
+            [
+                'name.required' => 'Bạn phải nhập phòng học.',
+                'name.max' => 'Phòng học không quá 5 ký tự.'
+            ]
+        );
+
         $input = $request->all();
 
         $classrooms = $this->classroomsRepository->create($input);
@@ -115,6 +136,15 @@ class ClassroomsController extends AppBaseController
      */
     public function update($id, UpdateClassroomsRequest $request)
     {
+        $this->validate(
+            $request, 
+            ['name' => 'required|max:5'],
+            [
+                'name.required' => 'Bạn phải nhập phòng học.',
+                'name.max' => 'Phòng học không quá 5 ký tự.'
+            ]
+        );
+
         $classrooms = $this->classroomsRepository->findWithoutFail($id);
 
         if (empty($classrooms)) {
@@ -153,4 +183,5 @@ class ClassroomsController extends AppBaseController
 
         return redirect(route('classrooms.index'));
     }
+
 }

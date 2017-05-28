@@ -4,7 +4,9 @@
     <section class="content-header">
         <h1 class="pull-left">Thiết bị</h1>
         <h1 class="pull-right">
+        @if(Auth::user()->role != 2)
            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('devices.create') !!}">Thêm thiết bị</a>
+        @endif
         </h1>
     </section>
     <div class="content">
@@ -20,4 +22,3 @@
         </div>
     </div>
 @endsection
-

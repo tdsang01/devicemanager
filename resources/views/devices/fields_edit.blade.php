@@ -46,8 +46,26 @@
 
 </div>
 
+<!-- Date Entry Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('date_entry', 'Ngày nhập về:') !!}
+    {!! Form::date('date_entry', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Date Using Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('date_using', 'Ngày sử dụng:') !!}
+    {!! Form::date('date_using', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Date Warranty Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('date_warranty', 'Ngày hết bảo hành:') !!}
+    {!! Form::date('date_warranty', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('devices.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::submit('Lưu', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('devices.index') !!}" class="btn btn-default">Hủy bỏ</a>
 </div>

@@ -40,8 +40,8 @@ class DeviceCats extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required',
-        'quantity' => 'numeric|digits_between:1,4'
+        // 'name' => 'required',
+        // 'quantity' => 'numeric|digits_between:1,4'
     ];
 
     

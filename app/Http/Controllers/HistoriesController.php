@@ -11,9 +11,11 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use App\Models\Devices;
+use App\Models\Histories;
 use App\Models\PeriodOfClasses;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class HistoriesController extends AppBaseController
 {
@@ -31,12 +33,15 @@ class HistoriesController extends AppBaseController
      *
      * @param Request $request
      * @return Response
-     */
+     */ 
     public function index(Request $request)
     {
         $this->historiesRepository->pushCriteria(new RequestCriteria($request));
         $histories = $this->historiesRepository->all();
-        return view('histories.index',compact('histories'));
+        $currentUserId = $request->user()->id;
+        $currentUserRole = $request->user()->role;
+        //dd($currentUserRole);
+        return view('histories.index',compact('histories', 'currentUserRole', 'currentUserId'));
     }
 
     /**
@@ -46,8 +51,11 @@ class HistoriesController extends AppBaseController
      */
     public function create()
     {
-        $devices = Devices::all();
-        $users = User::all();
+
+        $devices = DB::table('devices')->where('id_devicestatus', 1)->where('id_devicelocation', 2)->get();
+        //dd($devices);
+        $users = DB::table('users')->where('role', 2)->get();
+        //dd($users);
         $periodofclasses = PeriodOfClasses::all();
         $currentUser = Auth::user();
         return view('histories.create', compact('devices','users', 'periodofclasses','currentUser'));
@@ -67,13 +75,13 @@ class HistoriesController extends AppBaseController
         $id_borrower = $request->input('id_borrower');
         $id_periodstart = $request->input('id_periodstart');
         $id_periodend = $request->input('id_periodend');
-        $date = date('d-m-Y');
+        $date_borrow = date('d/m/Y');
         $id_lender = Auth::user()->id;
         $data = array(
                 '_token'=>$_token,
                 'id_device'=>$id_device,
                 'id_borrower'=>$id_borrower,
-                'date'=>$date,
+                'date_borrow'=>$date_borrow,
                 'id_periodstart'=>$id_periodstart,
                 'id_periodend'=>$id_periodend,
                 'id_lender'=>$id_lender);
@@ -185,4 +193,28 @@ class HistoriesController extends AppBaseController
         // $deviceBorrow->save();
         echo "trả lại";
     }
+    
+	public function trathietbi($id){
+	    $histories = Histories::find($id);
+        $histories->date_render = date('d/m/Y');
+        $histories->save();
+
+        $deviceRender = Devices::find($histories->id_device);
+        if($deviceRender->id_devicestatus == 2){
+            $deviceRender->id_devicestatus = 1;
+        }
+        $deviceRender->save();
+        
+        return redirect(route('histories.index'));
+	}
+	    
+	// public function baohongthietbi($id){
+	// 	$histories = $this->historiesRepository->findWithoutFail($id);
+ //        $deviceRender = Devices::find($histories->id_device);
+ //        $deviceRender->id_devicestatus = 3;
+ //        $deviceRender->save();
+ //        $histories->date_render = date('d/m/Y');
+ //        $histories->save(); 
+ //        return redirect(route('histories.index'));
+	// }
 }

@@ -26,7 +26,6 @@ class MembersController extends AppBaseController
     public function __construct(MembersRepository $membersRepository)
     {
         $this->middleware('auth');
-        $this->middleware('isManager');
         $this->membersRepository = $membersRepository;
     }
 
@@ -35,8 +34,10 @@ class MembersController extends AppBaseController
     public function index(Request $request)
     {
         $members = User::all();
-        return view('members.index')
-            ->with('members', $members);
+        $currentUserId = $request->user()->id;
+        //dd($currentUserId);
+        $currentUserRole = $request->user()->role;
+        return view('members.index', compact('members', 'currentUserId', 'currentUserRole'));
     }
 
     /**
@@ -121,8 +122,8 @@ class MembersController extends AppBaseController
         //edit
 //         $this->validator($request->all())->validate();
         $name = $request->name;
-        $email = $members`->email;
-        $password = $request->password;
+        $email = $members->email;
+        $password = Hash::make($request->password);
         $phone = $request->phone;
         $role = $request->role;
         

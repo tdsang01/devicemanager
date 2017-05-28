@@ -52,7 +52,7 @@ class Devices extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required'
+        
     ];
 
     public function devicecat(){

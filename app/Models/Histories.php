@@ -22,10 +22,12 @@ class Histories extends Model
     public $fillable = [
         'id_device',
         'id_borrower',
-        'date',
+        'date_borrow',
+    	'date_render',
         'id_periodstart',
         'id_periodend',
-        'id_lender'
+        'id_lender',
+        'flag_email'
     ];
 
     /**
@@ -36,10 +38,12 @@ class Histories extends Model
     protected $casts = [
         'id_device' => 'integer',
         'id_borrower' => 'integer',
-        'date' => 'string',
+        'date_borrow' => 'string',
+    	'date_render' => 'string',
         'id_periodstart' => 'integer',
         'id_periodend' => 'integer',
-        'id_lender' => 'integer'
+        'id_lender' => 'integer',
+        'flag_email' => 'integer'
     ];
 
     /**

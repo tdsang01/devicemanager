@@ -49,6 +49,16 @@ class CreateForeignDatabase extends Migration
            ->onUpdate('cascade')->onDelete('cascade');
 
         });
+
+        Schema::table('repairs', function($table) {
+           $table->foreign('id_device')->references('id')->on('devices')
+           ->onUpdate('cascade')->onDelete('cascade');
+
+           $table->foreign('id_reporter')->references('id')->on('users')
+           ->onUpdate('cascade')->onDelete('cascade');
+
+           $table->foreign('id_repairer')->references('id')->on('users')
+           ->onUpdate('cascade')->onDelete('cascade');
     }
 
     /**
@@ -75,6 +85,12 @@ class CreateForeignDatabase extends Migration
         $table->dropForeign('id_device_foreign');
         $table->dropForeign('id_periodstart_foreign');
         $table->dropForeign('id_periodend_foreign');
+      });
+
+      Schema::table('repairs', function (Blueprint $table) {
+        $table->dropForeign('id_device_foreign');
+        $table->dropForeign('id_reporter_foreign');
+        $table->dropForeign('id_repairer_foreign');
       });
     }
 }

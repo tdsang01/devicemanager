@@ -19,6 +19,7 @@ class DeviceStatusesController extends AppBaseController
     public function __construct(DeviceStatusesRepository $deviceStatusesRepo)
     {
         $this->middleware('auth');
+        $this->middleware('isManager');
         $this->deviceStatusesRepository = $deviceStatusesRepo;
     }
 

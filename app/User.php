@@ -30,16 +30,17 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsTo(\App\Models\Roles::class, 'role', 'id');
     }
+    
     public static $rulesCreate = [
     		'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',   
             'password' => 'required|min:6',
-            'phone' => 'required|digits_between:10,15|numeric',
+            'phone' => 'required|digits_between:10,20|regex:/(0)[0-9]{9}/',
     ];
     public static $rulesUpdate = [
     		'name' => 'required|max:255',
             'email' => 'required|email|max:255',   
             'password' => 'required|min:6',
-            'phone' => 'required|digits_between:10,15|numeric',
+            'phone' => 'required|digits_between:10,20|regex:/(0)[0-9]{9}/',
     ];
 }

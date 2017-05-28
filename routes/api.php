@@ -39,3 +39,9 @@ Route::resource('period_of_classes', 'PeriodOfClassesAPIController');
 Route::resource('histories', 'HistoryAPIController');
 
 Route::resource('histories', 'HistoriesAPIController');
+
+Route::resource('repairs', 'repairsAPIController');
+
+Route::resource('repairs', 'repairsAPIController');
+
+Route::resource('repairs', 'RepairsAPIController');

@@ -19,6 +19,7 @@ class DeviceLocationController extends AppBaseController
     public function __construct(DeviceLocationRepository $deviceLocationRepo)
     {
         $this->middleware('auth');
+        $this->middleware('isManager');
         $this->deviceLocationRepository = $deviceLocationRepo;
     }
 

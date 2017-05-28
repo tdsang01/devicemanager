@@ -42,9 +42,9 @@ class PeriodOfClasses extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required',
-        'timestart' => 'required',
-        'timeend' => 'required'
+        // 'name' => 'required',
+        // 'timestart' => 'required',
+        // 'timeend' => 'required'
     ];
 
     

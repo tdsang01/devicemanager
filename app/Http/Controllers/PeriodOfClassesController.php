@@ -19,6 +19,7 @@ class PeriodOfClassesController extends AppBaseController
     public function __construct(PeriodOfClassesRepository $periodOfClassesRepo)
     {
         $this->middleware('auth');
+        $this->middleware('isManager');
         $this->periodOfClassesRepository = $periodOfClassesRepo;
     }
 
@@ -55,6 +56,20 @@ class PeriodOfClassesController extends AppBaseController
      */
     public function store(CreatePeriodOfClassesRequest $request)
     {
+        $this->validate(
+            $request, 
+            [   
+                'name' => 'required',
+                'timestart' => 'required',
+                'timeend' => 'required'
+            ],
+            [
+                'name.required' => 'Bạn phải nhập Tiết học.',
+                'timestart.required' => "Bạn phải nhập Thời gian bắt đầu.",
+                'timeend.required' => "Bạn phải nhập Thời gian kết thúc.",
+            ]
+        );
+
         $input = $request->all();
         $periodOfClasses = $this->periodOfClassesRepository->create($input);
 
@@ -113,6 +128,20 @@ class PeriodOfClassesController extends AppBaseController
      */
     public function update($id, UpdatePeriodOfClassesRequest $request)
     {
+        $this->validate(
+            $request, 
+            [   
+                'name' => 'required',
+                'timestart' => 'required',
+                'timeend' => 'required'
+            ],
+            [
+                'name.required' => 'Bạn phải nhập Tiết học.',
+                'timestart.required' => "Bạn phải nhập Thời gian bắt đầu.",
+                'timeend.required' => "Bạn phải nhập Thời gian kết thúc.",
+            ]
+        );
+
         $periodOfClasses = $this->periodOfClassesRepository->findWithoutFail($id);
 
         if (empty($periodOfClasses)) {

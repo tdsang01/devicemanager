@@ -22,7 +22,7 @@ class CreateDevicesTable extends Migration
             $table->integer('id_devicestatus')->unsigned();
             $table->string('date_entry');
             $table->string('date_using');
-            $table->string('date_warraty');
+            $table->string('date_warranty');
             $table->timestamps();
         });
     }
