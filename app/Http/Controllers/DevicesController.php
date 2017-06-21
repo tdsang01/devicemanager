@@ -84,6 +84,28 @@ class DevicesController extends AppBaseController
             ]
         );
 
+        // $_token = $request->input('_token');
+        // $id_devicecat = $request->input('id_devicecat');
+        // $id_classroom = $request->input('id_classroom');
+        // $name = $request->input('name');
+        // $id_devicelocation = $request->input('id_devicelocation');
+        // $id_devicestatus = $request->input('id_devicestatus');
+        // $date_entry = '2017-05-04';
+        // $date_using = '2017-05-05';
+        // $date_warranty = '2020-05-04';
+        // $data = array(
+        //         '_token'=>$_token,
+        //         'id_devicecat'=>$id_devicecat,
+        //         'name'=>$name,
+        //         'id_devicelocation'=>$id_devicelocation,
+        //         'id_classroom'=>$id_classroom,
+        //         'id_devicestatus'=>$id_devicestatus,
+        //         'date_entry'=>$date_entry,
+        //         'date_using'=>$date_using,
+        //         'date_warranty'=>$date_warranty,
+        //         );
+
+        //dd($data);
         $input = $request->all();
         $devices = $this->devicesRepository->create($input);
 

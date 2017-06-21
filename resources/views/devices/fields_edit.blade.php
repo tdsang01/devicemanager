@@ -1,3 +1,13 @@
+<!-- Id Devicecat Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('id_devicecat', 'Danh mục thiết bị:') !!}
+    <select name="id_devicecat" class="form-control">
+        @foreach($devicecats as $devicecat)
+        <option @if(($devicecat->id) === ($devices->devicecat->id)) selected @endif value="{!! $devicecat->id !!}">{!! $devicecat->name !!}</option>
+        @endforeach
+    </select>
+</div>
+
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('name', 'Tên thiết bị:') !!}
@@ -10,16 +20,6 @@
     <select name="id_classroom" class="form-control">
         @foreach($classrooms as $classroom)
         <option @if(($classroom->id) === ($devices->classroom->id)) selected @endif value="{!! $classroom->id !!}">{!! $classroom->name !!}</option>
-        @endforeach
-    </select>
-</div>
-
-<!-- Id Devicecat Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('id_devicecat', 'Danh mục thiết bị:') !!}
-    <select name="id_devicecat" class="form-control">
-        @foreach($devicecats as $devicecat)
-        <option @if(($devicecat->id) === ($devices->devicecat->id)) selected @endif value="{!! $devicecat->id !!}">{!! $devicecat->name !!}</option>
         @endforeach
     </select>
 </div>

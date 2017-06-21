@@ -60,7 +60,8 @@ class RepairsController extends AppBaseController
         }
         dd((string)($statistic));
         // End */
-    
+        
+
         $this->repairsRepository->pushCriteria(new RequestCriteria($request));
         $repairs = $this->repairsRepository->all();
         $currentUserRole = $request->user()->role;

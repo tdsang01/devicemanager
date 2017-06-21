@@ -15,10 +15,10 @@
                    <div>
                    		<select name = "statistic" class = "statistic" >
                    			<option value = "0">Chọn thống kê:</option>
-                   			<option value = "lecture">Giảng viên</option>
-                   			<option value = "frequency">Tần suất sử dụng</option>
-                   			<option value = "time">Thời gian</option>
-                   			<option value = "borrowing">Đang mượn</option>
+                        <option value = "time">Thống kê theo thời gian</option>
+                   			<option value = "lecture">Thống kê theo giảng viên</option>
+                   			<option value = "frequency">Thống kê theo tần suất sử dụng</option>
+                   			<option value = "borrowing">Thống kê các thiết bị đang mượn</option>
                    		</select>
                    		<div class = "all_lecture">
                    			<select name = "all_lecture">

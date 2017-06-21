@@ -40,9 +40,15 @@ class DeadlineTask extends Command
     public function handle()
     {
         //*
-        $hour = date('H');
-        $minute = date('i');
-        $time = ((int)$hour + 7).':'.((int)$minute -5);
+        $hour = (int) date('H');
+        $minute = (int) date('i');
+
+        if($hour <10){
+            $time = '0'.($hour + 7).':'.($minute -5);
+        }else {
+            $time = ($hour + 7).':'.($minute -5);
+        }
+        
         //dd($time);
         $statistic = \App\Models\Histories::with('borrower')->with('periodofclassend')
         ->where('flag_email', 0)
@@ -52,6 +58,7 @@ class DeadlineTask extends Command
         if($statistic->count()){
             foreach ($statistic as $key => $value) {
                 if($time > $value->periodofclassend->timeend){
+                    \Log::info($time.'dd'.$value->periodofclassend->timeend);
                     array_push($arrEmail, $value->borrower->email);
                     // update flag
                     $value->flag_email = 1;

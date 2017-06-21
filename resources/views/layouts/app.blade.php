@@ -14,7 +14,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/DataTables-1.10.10/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 
 
     <!-- jQuery 2.1.4 -->
@@ -24,7 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
 
     <!-- Data table -->
-    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
     @yield('css')
 </head>

@@ -32,3 +32,13 @@
     @endforeach
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#periodOfClasses-table').DataTable( {
+        "language": {
+            "url": "http://localhost:8080/datn_devicemanager/public/data_table/language.json"
+        }
+    } );
+} );
+</script>

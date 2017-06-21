@@ -1,0 +1,15 @@
+{
+    "sEmptyTable": "Không tìm thấy dữ liệu",
+    "lengthMenu": "Hiển thị _MENU_ hàng trên trang",
+    "zeroRecords": "Không có dữ liệu",
+    "info": "Hiển thị trang _PAGE_ của _PAGES_",
+    "infoEmpty": "Không có trang hiển thị",
+    "infoFiltered": "(Lọc từ tổng số _MAX_ bản ghi)",
+    "oPaginate": {
+        "sFirst": "Đầu tiên",
+        "sPrevious": "Trước",
+        "sNext": "Tiếp",
+        "sLast": "Cuối cùng"
+      },
+    "sSearch": "Tìm kiếm"
+}

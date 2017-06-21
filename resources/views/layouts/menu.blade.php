@@ -35,10 +35,13 @@
 <li class="{{ Request::is('histories*') ? 'active' : '' }}">
     <a href="{!! route('histories.index') !!}"><i class="fa fa-edit"></i><span>QUẢN LÝ MƯỢN TRẢ</span></a>
 </li>
-
+@if(Auth::user()->role != 2)
 <li class="{{ Request::is('repairs*') ? 'active' : '' }}">
     <a href="{!! route('repairs.index') !!}"><i class="fa fa-edit"></i><span>QUẢN LÝ SỬA CHỮA</span></a>
 </li>
+@else
+@endif
+
 @if(Auth::user()->role != 2)
 <li class="{{ Request::is('statistic*') ? 'active' : '' }}">
     <a href="{!! route('statistic') !!}"><i class="fa fa-edit"></i><span>THỐNG KÊ</span></a>

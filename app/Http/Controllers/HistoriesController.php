@@ -37,7 +37,12 @@ class HistoriesController extends AppBaseController
     public function index(Request $request)
     {
         $this->historiesRepository->pushCriteria(new RequestCriteria($request));
-        $histories = $this->historiesRepository->all();
+        //$histories = $this->historiesRepository->all();
+        //$histories = Histories::all()->orderBy('date_render', 'desc');
+        $histories = Histories::with('device')->with('borrower')->with('lender')
+                    ->with('periodofclassstart')->with('periodofclassend')
+                    ->where('date_render', 'Chưa trả')
+                    ->get();
         $currentUserId = $request->user()->id;
         $currentUserRole = $request->user()->role;
         //dd($currentUserRole);
@@ -87,12 +92,13 @@ class HistoriesController extends AppBaseController
                 'id_lender'=>$id_lender);
 
 
-        $histories = $this->historiesRepository->create($data);
+        
         $deviceBorrow = Devices::find($id_device);
         $deviceBorrow->id_devicestatus = 2;
         $deviceBorrow->save();
-
-        Flash::success('Histories saved successfully.');
+        //dd($data);
+        $histories = $this->historiesRepository->create($data);
+        Flash::success('Đăng ký mượn thành công.');
 
         return redirect(route('histories.index'));
     }
@@ -129,7 +135,7 @@ class HistoriesController extends AppBaseController
         $histories = $this->historiesRepository->findWithoutFail($id);
 
         if (empty($histories)) {
-            Flash::error('Histories not found');
+            Flash::error('Không tồn tại');
 
             return redirect(route('histories.index'));
         }
@@ -150,7 +156,7 @@ class HistoriesController extends AppBaseController
         $histories = $this->historiesRepository->findWithoutFail($id);
 
         if (empty($histories)) {
-            Flash::error('Histories not found');
+            Flash::error('Không tồn tại');
 
             return redirect(route('histories.index'));
         }
